@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invise – Every event begins here</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5fb;--surf:#fff;--ink:#1e1a36;--mute:#6b6684;--line:#e3dff0;--acc:#5b3fd9;--accfg:#fff;--ok:#1f8a5b;--warn:#b4531a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14112a;--surf:#1d1938;--ink:#f1eefc;--mute:#a49fc2;--line:#322d55;--acc:#9d87ff;--accfg:#14112a;--ok:#55d19a;--warn:#f0a066}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'DM Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.1;margin:0 0 .5em}
+h1{font-size:clamp(2.4rem,7vw,4.6rem);letter-spacing:-.02em}h2{font-size:1.9rem}h3{font-size:1.15rem}
+p{margin:0 0 1em}.mute{color:var(--mute)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+nav{max-width:1080px;margin:auto;display:flex;align-items:center;gap:4px;padding:10px 16px;overflow-x:auto}
+.logo{font:600 1.5rem Fraunces,serif;margin-right:auto;cursor:pointer;white-space:nowrap;background:none;border:0;color:var(--ink)}
+nav button.t{background:none;border:0;color:var(--mute);padding:8px 12px;border-radius:99px;font:500 .92rem inherit;font-family:inherit;cursor:pointer;white-space:nowrap}
+nav button.t[aria-current=page]{background:var(--ink);color:var(--bg)}
+main{max-width:1080px;margin:auto;padding:28px 16px 80px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.btn{background:var(--acc);color:var(--accfg);border:0;border-radius:10px;padding:12px 20px;font:700 1rem 'DM Sans';cursor:pointer}
+.btn.o{background:none;color:var(--ink);border:1.5px solid var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.two{display:grid;gap:28px;grid-template-columns:1fr 1fr;align-items:start}
+@media(max-width:780px){.two{grid-template-columns:1fr}}
+.panel{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:20px}
+label{display:block;font-weight:500;font-size:.88rem;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:90px;resize:vertical}
+.card{aspect-ratio:3/4;border-radius:6px;padding:9% 8%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 14px 34px -14px rgba(30,26,54,.45)}
+.card::after{content:"";position:absolute;inset:3.5%;border:1.5px solid currentColor;opacity:.35;border-radius:2px;pointer-events:none}
+.card .k{font-size:.62em;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.card .ti{font-size:1.9em;line-height:1.05;margin:.35em 0;font-weight:600}
+.card .ds{font-size:.7em;opacity:.85;margin:.4em 0 0}
+.card .mg{font-size:.72em;font-style:italic;margin:.9em 0;opacity:.9}
+.tpl{cursor:pointer;background:none;border:2px solid transparent;border-radius:10px;padding:6px;text-align:left;color:inherit;font:inherit}
+.tpl[aria-pressed=true]{border-color:var(--acc)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.chip{border:1.5px solid var(--line);background:none;color:var(--ink);padding:6px 14px;border-radius:99px;cursor:pointer;font:inherit;font-size:.88rem}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+.wrap{overflow-x:auto}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.78rem;font-weight:700;background:var(--line)}
+.tag.ok{color:var(--ok)}.tag.w{color:var(--warn)}
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:20px}
+.stat b{display:block;font:600 2rem Fraunces,serif}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding:20px 0 50px}
+@media(max-width:780px){.hero{grid-template-columns:1fr}}
+.hero .card{max-width:300px;justify-self:center;transform:rotate(3deg)}
+.note{background:var(--surf);border-left:4px solid var(--acc);padding:12px 16px;border-radius:6px;font-size:.9rem;margin:14px 0}
+.ai{background:var(--bg);border:1px dashed var(--acc);border-radius:10px;padding:12px;margin-top:14px;font-size:.9rem}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:.9rem;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+body{overflow-x:hidden}
+header{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px)}
+.logo{font-size:1.75rem;letter-spacing:.01em}
+.btn{border-radius:99px;padding:13px 26px;box-shadow:0 10px 26px -12px var(--acc);transition:transform .15s}.btn:hover{transform:translateY(-2px)}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 0%,rgba(255,255,255,.4),transparent 55%);pointer-events:none}
+.or{width:46%;height:1px;background:currentColor;opacity:.45;margin:.9em 0;position:relative}.or::after{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:currentColor;transform:translateX(-50%) rotate(45deg)}
+.full{width:100vw;margin-left:calc(50% - 50vw)}.in{max-width:1080px;margin:auto;padding:0 16px}
+.first{margin-top:-28px}
+.dk{background:radial-gradient(60% 80% at 82% 8%,#4b2fb8 0%,transparent 60%),radial-gradient(50% 60% at 8% 100%,#7a2f6b 0%,transparent 60%),#120f24;color:#f4f0ff}
+.dk .mute{color:#b9b2da}.dk .btn.o{color:#f4f0ff;border-color:#4a4375}
+.gold{background:linear-gradient(135deg,#f6e4a8,#c89b3c);color:#2a1b00;box-shadow:0 12px 30px -10px #c89b3c}
+.big{font-size:clamp(2.8rem,8vw,5.6rem);letter-spacing:-.03em;font-weight:400}
+.herogrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;padding:70px 0 60px}
+.fan{position:relative;height:460px}
+.fan .card{position:absolute;width:250px;left:50%;top:30px;margin-left:-125px;transform:translateX(var(--x)) rotate(var(--r));animation:fan 1.2s cubic-bezier(.2,.8,.2,1) both}
+.c1{--r:-13deg;--x:-120px}.c2{--r:0deg;--x:0px;top:0!important;z-index:2}.c3{--r:13deg;--x:120px}
+@keyframes fan{from{transform:translateX(0) rotate(0)}}
+.sec{padding:72px 0}
+.rail{display:flex;gap:20px;overflow-x:auto;padding:14px 4px 26px;scroll-snap-type:x mandatory}.rail .tpl{flex:0 0 220px;scroll-snap-align:start}
+.steps{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.steps b{font:400 4rem/1 Fraunces,serif;background:linear-gradient(135deg,#f6e4a8,#c89b3c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.feat{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.feat div{background:var(--surf);padding:28px}
+footer{padding:30px 0 50px;color:var(--mute);font-size:.9rem}
+@media(max-width:780px){.herogrid{grid-template-columns:1fr;padding-top:40px}.fan{height:400px}.fan .card{width:190px;margin-left:-95px}.c1{--x:-80px}.c3{--x:80px}}
+@media(prefers-reduced-motion:reduce){.fan .card{animation:none}}
+.panel{border-radius:20px;padding:24px;box-shadow:0 22px 44px -30px rgba(30,26,54,.55)}
+input,select,textarea{border-radius:12px;padding:11px 14px}
+th{font-size:.78rem;color:var(--mute);font-weight:500}tr:hover td{background:color-mix(in srgb,var(--acc) 6%,transparent)}
+.tag{padding:3px 11px}.chip{padding:7px 16px}
+.panel.stat b{background:linear-gradient(135deg,var(--acc),#c0569b);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:2.4rem}
+.stp{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;font-size:.88rem}.stp span{padding:6px 15px;border-radius:99px;border:1.5px solid var(--line);color:var(--mute)}.stp .on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.stp .dn{color:var(--ok);border-color:var(--ok)}
+.stick{position:sticky;top:calc(80px + env(safe-area-inset-top,0px))}
+.plans{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:26px}.plan{border:1px solid var(--line);border-radius:22px;padding:30px;background:var(--surf)}.plan.hot{background:#120f24;color:#f4f0ff;border-color:#c89b3c;box-shadow:0 26px 50px -28px #c89b3c}.plan b{font:400 2.8rem Fraunces,serif;display:block;margin:6px 0}.plan ul{padding-left:18px;margin:14px 0 0}.plan li{margin-bottom:6px}
+</style></head><body>
+<header><nav aria-label="Main"><button class="logo" onclick="go('home')">Invise</button></nav></header>
+<main id="m"></main><div id="toast" role="status"></div>
+<script>
+const T=[
+{n:'Evening Garden',c:'Wedding',s:'Elegant',bg:'#f3e4e6',fg:'#4a2233',f:'Fraunces,serif'},
+{n:'Midnight Gala',c:'Gala',s:'Luxury',bg:'#1b1738',fg:'#e8d9a8',f:'Fraunces,serif'},
+{n:'Confetti Day',c:'Birthday',s:'Playful',bg:'#ffd96b',fg:'#2a1b6e',f:'DM Sans,sans-serif'},
+{n:'Summit',c:'Conference',s:'Modern',bg:'#e5f0ea',fg:'#12382b',f:'DM Sans,sans-serif'},
+{n:'Cap & Gown',c:'Graduation',s:'Formal',bg:'#2b3a67',fg:'#f5f1e6',f:'Fraunces,serif'},
+{n:'Plain Paper',c:'Custom',s:'Minimalist',bg:'#ffffff',fg:'#1e1a36',f:'Fraunces,serif'}];
+const S={tpl:0,view:'home',filter:'All',sent:false,
+ev:{kind:'Wedding',title:'Amara & Daniel',host:'Together with their families',date:'2026-12-12',time:'15:00',venue:'Lakeview Gardens, Nairobi',msg:'Join us as we celebrate our wedding day.',rsvp:'2026-11-20'},
+guests:[],lastFile:''};
+const SAMPLE=`name,phone,email,group
+Grace Wanjiru,+254700111222,grace@example.com,Family
+Tunde Bello,+2348012345678,,Friends
+Priya Nair,,priya@example.com,VIP
+Grace Wanjiru,+254700111222,grace@example.com,Family
+Sam Okafor,,,Colleagues`;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=s=>document.querySelector(s);
+const toast=t=>{const e=$('#toast');e.textContent=t;e.className='on';setTimeout(()=>e.className='',2200)};
+const fd=d=>{try{return new Date(d+'T12:00').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){return d}};
+function inv(t,e,small){const x=T[t];
+return `<div class="card" style="background:${x.bg};color:${x.fg};font-family:${x.f};${small?'font-size:11px':'font-size:16px'}">
+<div class="k">${esc(e.kind)} invitation</div><div class="ti">${esc(e.title)}</div><div class="or"></div><div class="k">${esc(e.host)}</div>
+<div class="mg">${esc(e.msg)}</div><div class="ds">${esc(fd(e.date))} at ${esc(e.time)}</div><div class="ds">${esc(e.venue)}</div>
+<div class="ds" style="margin-top:1em">Reply by ${esc(fd(e.rsvp))}</div></div>`}
+const TABS=[['home','Home'],['gallery','Templates'],['editor','Editor'],['guests','Guests'],['send','Send'],['rsvp','Guest page'],['dash','Dashboard']];
+function go(v){S.view=v;$('nav').innerHTML=`<button class="logo" onclick="go('home')">Invise</button>`+TABS.slice(1).map(([k,l])=>`<button class="t" ${k==v?'aria-current="page"':''} onclick="go('${k}')">${l}</button>`).join('');V[v]();scrollTo(0,0)}
+function parse(txt){const L=txt.trim().split(/\r?\n/).filter(Boolean);if(L.length<2)return[];
+const h=L[0].split(',').map(s=>s.trim().toLowerCase());const ix=k=>h.findIndex(x=>x.includes(k));
+const [a,b,c,d]=[ix('name'),ix('phone')>=0?ix('phone'):ix('mobile'),ix('mail'),ix('group')];
+return L.slice(1).map((r,i)=>{const p=r.split(',').map(s=>s.trim());
+const g={id:i,name:p[a]||'',phone:p[b]||'',email:p[c]||'',group:p[d]||'Guest',status:'draft',rsvp:'—',n:0};
+g.ch=g.email?'Email':g.phone?'WhatsApp':'None';return g})}
+function flags(){const seen={};S.guests.forEach(g=>{const k=(g.email||g.phone||g.name).toLowerCase();g.dup=!!seen[k];seen[k]=1;g.miss=!g.email&&!g.phone})}
+const V={
+home(){go_nav();return V.home2();$('#m').innerHTML=`<section class="hero"><div><h1>Every event begins here.</h1>
+<p class="mute" style="font-size:1.15rem;max-width:34em">Design the invitation, upload your guest list, send it, and watch the replies arrive. One place, from first draft to the final headcount.</p>
+<button class="btn" onclick="go('gallery')">Create an invitation</button> <button class="btn o" onclick="go('dash')">See a sample event</button></div>${inv(0,S.ev)}</section>
+<div class="grid">${[['Weddings and engagements','Guest groups, RSVPs, venue details.'],['Galas and dinners','VIP lists and attendance tracking.'],['Conferences','Registration, schedules, attendee lists.'],['Birthdays and reunions','Bright, quick to share.']].map(a=>`<div class="panel"><h3>${a[0]}</h3><p class="mute" style="margin:0">${a[1]}</p></div>`).join('')}</div>
+<div class="note">This is a working prototype. Sending is simulated: real WhatsApp, email and SMS need provider accounts and consent rules.</div>`},
+home2(){const E=(kind,title,host,date,venue,msg)=>({kind,title,host,date,time:'18:00',venue,msg,rsvp:date});
+const A=E('Wedding','Amara & Daniel','Together with their families','2026-12-12','Lakeview Gardens, Nairobi','Join us as we celebrate our wedding day.'),B=E('Gala','The Lumen Gala','In support of the Arts Fund','2027-02-06','The Grand Hall, Lagos','An evening of dinner, music and giving.'),C=E('Birthday','Zuri turns 30','Hosted by friends','2026-11-28','Rooftop 21, Accra','Good food, great people, zero excuses.');
+$('#m').innerHTML=`<section class="full dk first"><div class="in herogrid"><div><h1 class="big">Invitations worth opening.</h1>
+<p class="mute" style="font-size:1.2rem;max-width:30em;margin:0 0 28px">Design a stunning invitation, upload your guest list, send by email, WhatsApp or text, and watch the replies arrive. All in one calm place.</p>
+<button class="btn gold" onclick="go('gallery')">Create an invitation</button> <button class="btn o" onclick="go('dash')">See a sample event</button></div>
+<div class="fan" aria-hidden="true"><div class="c1">${inv(2,C,1)}</div><div class="c3">${inv(1,B,1)}</div><div class="c2">${inv(0,A,1)}</div></div></div></section>
+<section class="sec"><h2>Designs people keep</h2><p class="mute">Elegant, playful or bold. Pick one and make it yours.</p>
+<div class="rail">${T.map((t,i)=>`<button class="tpl" onclick="S.tpl=${i};S.ev.kind='${t.c}';go('editor')">${inv(i,S.ev,1)}<b>${t.n}</b><div class="mute" style="font-size:.85rem">${t.c}</div></button>`).join('')}</div></section>
+<section class="sec" style="padding-top:10px"><h2>From idea to headcount in three steps</h2><div class="steps" style="margin-top:30px">${[['1','Design','Choose a template and edit the wording, colours and details with a live preview.'],['2','Invite','Upload a spreadsheet. We catch duplicates and missing contacts before anything goes out.'],['3','Track','See who has received, replied and is coming. Export the final list for the door.']].map(s=>`<div><b>${s[0]}</b><h3>${s[1]}</h3><p class="mute">${s[2]}</p></div>`).join('')}</div></section>
+<section class="feat">${[['You approve every send','Review recipients, channel and message first. Nothing goes out automatically.'],['Every channel','Email, WhatsApp and text, chosen guest by guest.'],['Private by design','Guests see only their own invitation, never the full list.'],['Wording help','Optional AI suggestions you can edit, reject or regenerate.']].map(f=>`<div><h3>${f[0]}</h3><p class="mute" style="margin:0">${f[1]}</p></div>`).join('')}</section>
+<section class="sec" style="padding-bottom:0"><h2>Simple plans</h2><p class="mute">Example pricing for this prototype. Final plans, and SMS or WhatsApp costs, depend on your providers.</p><div class="plans"><div class="plan"><h3>Starter</h3><b>Free</b><p class="mute" style="margin:0">Try it on a small event.</p><ul><li>1 event, up to 25 guests</li><li>Email invitations</li><li>3 templates</li></ul></div><div class="plan hot"><h3>Event</h3><b>$29</b><p style="margin:0;opacity:.75">Per event.</p><ul><li>Unlimited guests</li><li>All templates and wording help</li><li>WhatsApp and SMS sending</li><li>Guest list export</li></ul></div><div class="plan"><h3>Organisation</h3><b>Custom</b><p class="mute" style="margin:0">For teams and venues.</p><ul><li>Brand colours and logos</li><li>Shared team access</li><li>Priority support</li></ul></div></div></section>
+<section class="full dk" style="margin-top:72px"><div class="in" style="text-align:center;padding:80px 16px"><h2 class="big" style="font-size:clamp(2.2rem,6vw,4rem)">Every event begins here.</h2><p class="mute" style="margin-bottom:26px">Your first invitation takes about five minutes.</p><button class="btn gold" onclick="go('gallery')">Start designing</button></div></section>
+<footer>Invise. Prototype: sending is simulated until email, WhatsApp and SMS providers are connected.</footer>`},
+gallery(){const cats=['All',...new Set(T.map(t=>t.c))];
+$('#m').innerHTML=`${stp(0)}<h2>Choose a design</h2><p class="mute">Preview each template, then make it yours in the editor.</p>
+<div class="chips" role="group" aria-label="Filter by event">${cats.map(c=>`<button class="chip" aria-pressed="${S.filter==c}" onclick="S.filter='${c}';V.gallery()">${c}</button>`).join('')}</div>
+<div class="grid">${T.map((t,i)=>({t,i})).filter(o=>S.filter=='All'||o.t.c==S.filter).map(o=>`<button class="tpl" aria-pressed="${S.tpl==o.i}" onclick="S.tpl=${o.i};S.ev.kind='${o.t.c}';go('editor')">${inv(o.i,S.ev,1)}<b>${o.t.n}</b><div class="mute" style="font-size:.85rem">${o.t.c}, ${o.t.s.toLowerCase()}</div></button>`).join('')}</div>`},
+editor(){const e=S.ev,F=(k,l,t='text')=>`<label for="f${k}">${l}</label><input id="f${k}" type="${t}" value="${esc(e[k])}" data-k="${k}">`;
+$('#m').innerHTML=`${stp(0)}<h2>Personalise</h2><div class="two"><div class="panel">${F('title','Event name')}${F('host','Hosted by')}${F('date','Date','date')}${F('time','Time','time')}${F('venue','Venue')}${F('rsvp','Reply by','date')}
+<label for="fmsg">Message</label><textarea id="fmsg" data-k="msg">${esc(e.msg)}</textarea>
+<label for="ftpl">Design</label><select id="ftpl">${T.map((t,i)=>`<option value="${i}" ${i==S.tpl?'selected':''}>${t.n}</option>`).join('')}</select>
+<div class="ai"><b>Wording ideas</b> <span class="tag">AI suggestion</span><p class="mute" style="margin:6px 0 8px">Pick a tone. You can edit or reject anything.</p>
+<div class="chips" style="margin:0">${['Warm','Formal','Playful'].map(t=>`<button class="chip" data-tone="${t}">${t}</button>`).join('')}</div></div>
+<p style="margin-top:18px"><button class="btn" onclick="go('guests')">Next: add guests</button></p></div>
+<div><div id="pv" class="stick" style="max-width:340px;margin:auto">${inv(S.tpl,e)}</div></div></div>`;
+const pv=()=>$('#pv').innerHTML=inv(S.tpl,S.ev);
+document.querySelectorAll('[data-k]').forEach(i=>i.oninput=()=>{S.ev[i.dataset.k]=i.value;pv()});
+$('#ftpl').onchange=ev=>{S.tpl=+ev.target.value;pv()};
+const W={Warm:'We would be so happy to have you with us. Come celebrate, share a meal and make memories.',Formal:'The pleasure of your company is requested at the celebration of this occasion.',Playful:'Good food, great people, zero excuses. Save the date and bring your dancing shoes!'};
+document.querySelectorAll('[data-tone]').forEach(b=>b.onclick=()=>{S.ev.msg=W[b.dataset.tone];$('#fmsg').value=S.ev.msg;pv();toast('Suggestion applied. Edit freely.')})},
+guests(){flags();const G=S.guests,bad=G.filter(g=>g.dup||g.miss).length;
+$('#m').innerHTML=`${stp(1)}<h2>Guest list</h2><p class="mute">Upload a CSV or paste rows. Review everything before anything is sent.</p>
+<div class="panel"><label for="csv">Paste rows (first line is the header)</label><textarea id="csv" placeholder="name,phone,email,group">${esc(S.lastFile)}</textarea>
+<p style="margin:12px 0 0"><button class="btn" id="imp">Import and check</button> <label class="btn o" style="display:inline-block;margin:0;cursor:pointer">Upload CSV<input id="up" type="file" accept=".csv,text/csv" hidden></label> <button class="btn o" id="smp">Use sample</button></p></div>
+${G.length?`<div class="panel" style="margin-top:18px"><p><b>${G.length} guests</b> · ${bad?`<span class="tag w">${bad} need attention</span>`:'<span class="tag ok">All clear</span>'}</p>
+<div class="wrap"><table><tr><th>Name</th><th>Contact</th><th>Group</th><th>Send by</th><th>Check</th></tr>${G.map((g,i)=>`<tr><td>${esc(g.name)||'<i>missing</i>'}</td><td>${esc(g.email||g.phone)||'—'}</td><td>${esc(g.group)}</td>
+<td><select data-ch="${i}" aria-label="Channel for ${esc(g.name)}">${['Email','WhatsApp','SMS','None'].map(c=>`<option ${g.ch==c?'selected':''}>${c}</option>`).join('')}</select></td>
+<td>${g.dup?'<span class="tag w">Duplicate</span>':g.miss?'<span class="tag w">No contact</span>':'<span class="tag ok">OK</span>'}</td></tr>`).join('')}</table></div>
+<p style="margin:14px 0 0">${bad?'<button class="btn o" id="fix">Remove flagged rows</button> ':''}<button class="btn" onclick="go(\'send\')">Next: review and send</button></p></div>`:''}`;
+const load=t=>{S.lastFile=t;S.guests=parse(t);if(!S.guests.length)return toast('Add a header row and at least one guest.');S.sent=false;V.guests()};
+$('#imp').onclick=()=>load($('#csv').value);$('#smp').onclick=()=>load(SAMPLE);
+$('#up').onchange=e=>{const f=e.target.files[0];if(f)f.text().then(load)};
+document.querySelectorAll('[data-ch]').forEach(s=>s.onchange=()=>S.guests[s.dataset.ch].ch=s.value);
+const fx=$('#fix');if(fx)fx.onclick=()=>{S.guests=S.guests.filter(g=>!g.dup&&!g.miss);V.guests();toast('Flagged rows removed')}},
+send(){flags();const G=S.guests.filter(g=>g.ch!='None'&&!g.dup&&!g.miss);
+if(!G.length){$('#m').innerHTML=`${stp(2)}<h2>Review and send</h2><div class="panel"><p>No guests ready to send yet.</p><button class="btn" onclick="go('guests')">Add guests</button></div>`;return}
+const cnt={};G.forEach(g=>cnt[g.ch]=(cnt[g.ch]||0)+1);
+$('#m').innerHTML=`${stp(2)}<h2>Review and send</h2><div class="two"><div class="panel"><h3>Recipients</h3><p>${G.length} guests will be invited:</p><ul>${Object.entries(cnt).map(([k,v])=>`<li>${v} by ${k}</li>`).join('')}</ul>
+<div class="note">Estimated cost: shown by your SMS or WhatsApp provider before sending. Email is free in this prototype.</div>
+<label style="display:flex;gap:8px;align-items:flex-start;font-weight:400"><input type="checkbox" id="ok" style="width:auto;margin-top:4px"> I have permission to contact these guests and I approve this list.</label>
+<p style="margin-top:14px"><button class="btn" id="go" disabled>${S.sent?'Already sent':'Send invitations'}</button></p></div>
+<div><div style="max-width:300px;margin:auto">${inv(S.tpl,S.ev)}</div></div></div>`;
+const ok=$('#ok'),b=$('#go');ok.onchange=()=>b.disabled=!ok.checked||S.sent;
+b.onclick=()=>{S.sent=true;b.disabled=true;b.textContent='Sending…';G.forEach(g=>g.status='queued');
+setTimeout(()=>{G.forEach(g=>g.status=g.ch=='SMS'&&g.group=='Colleagues'?'failed':'sent');b.textContent='Sent: see dashboard';toast('Invitations sent (simulated)')},900);
+setTimeout(()=>G.forEach(g=>{if(g.status=='sent')g.status='delivered'}),2200)}},
+rsvp(){const G=S.guests.filter(g=>g.status!='draft');
+$('#m').innerHTML=`<h2>What your guests see</h2><p class="mute">Each guest opens a personal link to reply. Try it.</p><div class="two"><div style="max-width:340px">${inv(S.tpl,S.ev)}</div><div class="panel">
+${G.length?`<label for="who">Replying as</label><select id="who">${G.map(g=>`<option value="${S.guests.indexOf(g)}">${esc(g.name)}</option>`).join('')}</select>
+<label for="num">Number attending</label><input id="num" type="number" min="1" max="6" value="1">
+<p style="margin-top:14px"><button class="btn" data-r="Attending">I'll be there</button> <button class="btn o" data-r="Declined">Can't make it</button></p>`:`<p>Send invitations first, then guests can reply here.</p><button class="btn" onclick="go('send')">Go to send</button>`}</div></div>`;
+document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{const g=S.guests[$('#who').value];g.rsvp=b.dataset.r;g.n=b.dataset.r=='Attending'?+$('#num').value:0;toast('Reply recorded for '+g.name)})},
+dash(){const G=S.guests,sent=G.filter(g=>g.status!='draft'),yes=G.filter(g=>g.rsvp=='Attending');
+const head=G.filter(g=>g.rsvp=='Attending').reduce((a,g)=>a+g.n,0);
+$('#m').innerHTML=`<section class="full dk first"><div class="in" style="padding:44px 16px 40px"><h2 class="big" style="font-size:clamp(2rem,6vw,3.4rem);margin:0 0 6px">${esc(S.ev.title)}</h2><p class="mute" style="margin:0">${esc(fd(S.ev.date))} · ${esc(S.ev.venue)}</p></div></section><div style="height:26px"></div>
+<div class="stats">${[['Guests',G.length],['Sent',sent.length],['Attending',head],['Declined',G.filter(g=>g.rsvp=='Declined').length],['Awaiting',sent.filter(g=>g.rsvp=='—').length]].map(([l,v])=>`<div class="panel stat"><b>${v}</b>${l}</div>`).join('')}</div>
+${G.length?`<div class="panel wrap"><table><tr><th>Guest</th><th>Channel</th><th>Delivery</th><th>Reply</th></tr>${G.map(g=>`<tr><td>${esc(g.name)}</td><td>${g.ch}</td><td><span class="tag ${g.status=='failed'?'w':g.status=='delivered'?'ok':''}">${g.status}</span></td><td>${g.rsvp}${g.n?' ('+g.n+')':''}</td></tr>`).join('')}</table>
+<p style="margin:14px 0 0"><button class="btn o" id="ex">Export guest list (CSV)</button> <button class="btn o" onclick="toast('Reminders only go to guests who haven’t replied, after you approve.')">Remind non-responders</button></p></div>`:`<div class="panel"><p>No guests yet. Add a guest list, or explore with sample data.</p><button class="btn" onclick="go('guests')">Add guests</button> <button class="btn o" onclick="demo()">Load sample event</button></div>`}`;
+const ex=$('#ex');if(ex)ex.onclick=()=>{const c='name,contact,channel,status,rsvp,attending\n'+G.map(g=>[g.name,g.email||g.phone,g.ch,g.status,g.rsvp,g.n].join(',')).join('\n');
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/csv'}));a.download='guests.csv';a.click()}}
+};
+function stp(n){return `<div class="stp">${['Design','Guests','Send'].map((s,i)=>`<span class="${i==n?'on':i<n?'dn':''}">${i<n?'✓ ':''}${s}</span>`).join('')}</div>`}
+function demo(){S.guests=parse(SAMPLE).filter((g,i)=>i!=3);S.sent=true;S.guests.forEach((g,i)=>{if(g.ch=='None')g.ch='SMS';g.status=['delivered','delivered','delivered','sent'][i];g.rsvp=['Attending','Declined','Attending','—'][i];g.n=[2,0,1,0][i]});go('dash')}
+function go_nav(){$('nav').innerHTML=`<button class="logo" onclick="go('home')">Invise</button>`+TABS.slice(1).map(([k,l])=>`<button class="t" onclick="go('${k}')">${l}</button>`).join('')}
+go('home');
+</script></body></html>
